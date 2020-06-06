@@ -18,10 +18,12 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('country', 'Country\CountryController@country');
-Route::get('country/{id}', 'Country\CountryController@countryById');
+Route::get('country', 'Api\Country\CountryController@country');
+Route::get('country/{id}', 'Api\Country\CountryController@countryById');
 
-Route::post('country', 'Country\CountryController@countrySave');
+Route::post('country', 'Api\Country\CountryController@countrySave');
 
-Route::put('country/{id}', 'Country\CountryController@countryEdit');
-Route::delete('country/{id}', 'Country\CountryController@countryDelete');
+Route::put('country/{id}', 'Api\Country\CountryController@countryEdit');
+Route::delete('country/{id}', 'Api\Country\CountryController@countryDelete');
+
+Route::post('login', 'Api\Auth\LoginController@login');
