@@ -9,23 +9,12 @@ use App\Models\CountryModel;
 
 use Validator;
 
-class CountryController extends Controller
-{
+class CountryController extends Controller {
     public function country() {
-        try {
-            $user = auth()->userOrFail();
-        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => true, 'message' => $e->getMessage()], 401);
-        }
         return response()->json(CountryModel::get(), 200);
     }
 
     public function countryById($id) {
-        try {
-            $user = auth()->userOrFail();
-        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => true, 'message' => $e->getMessage()], 401);
-        }
         $country = CountryModel::find($id);
         if ( is_null($country) ) {
             return response()->json(['error' => true, 'message' => 'Not found'], 404);
@@ -34,11 +23,6 @@ class CountryController extends Controller
     }
 
     public function countrySave(Request $req) {
-        try {
-            $user = auth()->userOrFail();
-        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => true, 'message' => $e->getMessage()], 401);
-        }
         $rules = [
             'iso' => 'required|min:2|max:2',
             'name' => 'required|min:3',
@@ -53,11 +37,6 @@ class CountryController extends Controller
     }
 
     public function countryEdit(Request $req, $id) {
-        try {
-            $user = auth()->userOrFail();
-        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => true, 'message' => $e->getMessage()], 401);
-        }
         $rules = [
             'iso' => 'required|min:2|max:2',
             'name' => 'required|min:3',
@@ -76,11 +55,6 @@ class CountryController extends Controller
     }
 
     public function countryDelete(Request $req, $id) {
-        try {
-            $user = auth()->userOrFail();
-        } catch (\Tymon\JWTAuth\Exceptions\UserNotDefinedException $e) {
-            return response()->json(['error' => true, 'message' => $e->getMessage()], 401);
-        }
         $country = CountryModel::find($id);
         if ( is_null($country) ) {
             return response()->json(['error' => true, 'message' => 'Not found'], 404);

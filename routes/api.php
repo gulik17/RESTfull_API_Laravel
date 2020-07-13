@@ -21,9 +21,11 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::get('country', 'Api\Country\CountryController@country');
 Route::get('country/{id}', 'Api\Country\CountryController@countryById');
 
-Route::post('country', 'Api\Country\CountryController@countrySave');
-
-Route::put('country/{id}', 'Api\Country\CountryController@countryEdit');
-Route::delete('country/{id}', 'Api\Country\CountryController@countryDelete');
-
 Route::post('login', 'Api\Auth\LoginController@login');
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+    Route::post('country', 'Api\Country\CountryController@countrySave');
+    Route::put('country/{id}', 'Api\Country\CountryController@countryEdit');
+    Route::delete('country/{id}', 'Api\Country\CountryController@countryDelete');
+    Route::get('refresh', 'Api\Auth\LoginController@refresh');
+});
